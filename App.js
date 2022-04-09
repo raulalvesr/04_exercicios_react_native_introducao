@@ -4,28 +4,24 @@ import React, {useState} from 'react';
 
 export default function App() {
   const [numeros, setNumeros] = useState([]);
+  
   const sortearNumeros = () => {
     const aux = [];
-
-    while(true) {
-      if (aux.length >= 6) {
-        setNumeros(aux);
-        break;
-      }
-      
-      const generatedNumber = Math.floor(Math.random() * 60) + 1;
-      if (aux.includes(generatedNumber)) {
-        continue;
-      }
   
-      aux.push(generatedNumber);
+    while(aux.length < 6) {
+      const generatedNumber = Math.floor(Math.random() * 60) + 1;
+      if (!aux.includes(generatedNumber)) {
+        aux.push(generatedNumber);
+      }
     }
+  
+    setNumeros(aux);
   }
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row'}}>{numeros.map(x => <Text>{x} </Text>)}</View>
-        <Button title="Sortear" onPress={() => sortearNumeros()}/>
+      <Text style={{marginBottom: '10px'}}>{numeros.join(', ')}</Text>
+      <Button title="Sortear" onPress={() => sortearNumeros()}/>
       <StatusBar style="auto" />
     </View>
   );
