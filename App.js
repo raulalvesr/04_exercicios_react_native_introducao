@@ -1,29 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import React, {useState} from 'react';
 
 export default function App() {
   const [numeros, setNumeros] = useState([]);
+  const sortearNumeros = () => {
+    const aux = [];
 
-  // setNumeros = () => {
-  //   while(true) {
-  //     if (numeros.lengt >= 6) {
-  //       break;
-  //     }
+    while(true) {
+      if (aux.length >= 6) {
+        setNumeros(aux);
+        break;
+      }
       
-  //     const generatedNumber = Math.random() * (60 - 1) + 1;
-  //     if (!numeros.includes(generatedNumber)) {
-  //       continue;
-  //     }
-
-  //     numeros.push(generatedNumber);
-  //   }
-  // }
+      const generatedNumber = Math.floor(Math.random() * 60) + 1;
+      if (aux.includes(generatedNumber)) {
+        continue;
+      }
+  
+      aux.push(generatedNumber);
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <Text>{numeros}</Text>
-      {/* <Button title="Sortear" onPress={() => setNumeros()}/> */}
+      <View style={{flexDirection: 'row'}}>{numeros.map(x => <Text>{x} </Text>)}</View>
+        <Button title="Sortear" onPress={() => sortearNumeros()}/>
       <StatusBar style="auto" />
     </View>
   );
